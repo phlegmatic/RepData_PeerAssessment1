@@ -34,17 +34,9 @@ print(dailyStepSum[1:5,])
 2. Creating histogram of daily Step Data
 
 ```{r fig.width=15, echo=TRUE, tidy=FALSE}
-with(dailyStepSum, {
-        par(oma=c(2,0,0,0), mar=c(6.75,6.75,3,0), mgp=c(5.75,0.75,0), las=2)
-        barplot(
-                height=Steps,
-                main="Total Steps taken per Day",
-                xlab="Date",
-                ylab="Step count per Day",
-                names.arg=Date,
-                space=c(0)
-        )
-})
+
+ hist(dailyStepSum$Steps,col="blue",xlab="StepCount",ylab="Frequency",main="StepsCount taken each Day")
+
 ```
 
 3. Calculating the mean and median values (ignoring NA values) using the daily step count dataset.
@@ -157,29 +149,19 @@ print(newDailyStepSum[1:5,])
 4. A histogram of the above data is created as a form of visual representation.
 
 ```{r fig.width=15, echo=TRUE, tidy=FALSE}
-with(newDailyStepSum, {
-        par(oma=c(2,0,0,0), mar=c(6.75,6.75,3,0), mgp=c(5.75,0.75,0), las=2)
-        barplot(
-                height=Steps,
-                main="Graph of StepsCount per Day",
-                xlab="Dates",
-                ylab="StepCount per Day",
-                names.arg=Date,
-                space=c(0)
-        )
-})
+ hist(newDailyStepSum$Steps,col="blue",xlab="StepCount",ylab="Frequency",main="New StepsCount taken each Day")
 ```
 
 5. Calculate the mean and median values of this new dataset (NA values replaced with mean).
 
-1. Mean
+Mean of new dataset
 ```{r echo=TRUE}
 newDailyStepMean <- mean(newDailyStepSum$Steps)
 ```
 ```{r echo=FALSE}
 print(newDailyStepMean)
 ```
-2. Median
+Median of new dataset
 ```{r echo=TRUE}
 newDailyStepMedian <- median(newDailyStepSum$Steps)
 ```
@@ -198,11 +180,8 @@ Adding the missing values to the original data has caused both the mean and medi
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
->For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part.
-1. Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
-2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). The plot should look something like the following, which was creating using simulated data:
 
-        1.  A new column indicating whether the date is a weekday or a weekend is added to the new dataset created in the previous section.
+A new column indicating whether the date is a weekday or a weekend is added to the new dataset created in the previous section.
 
 ```{r echo=TRUE}
 dateDayType <- data.frame(sapply(X=newData$Date, FUN=function(day) {
@@ -220,7 +199,7 @@ colnames(newDataWithDayType) <- c("Steps", "Date", "Interval", "DayType")
 ```
 
 First 5 rows of new data:
-        ```{r echo=FALSE}
+```{r echo=FALSE}
 print(newDataWithDayType[1:5,])
 ```
 2. The data is then separated into weekday or weekend and the mean (average) number of steps taken for each 5-minute interval, itself averaged across all weekday days or weekend days is calculated.
